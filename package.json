@@ -1,0 +1,20 @@
+{
+  "name": "reliance_utility",
+  "version": "1.0.0",
+  "description": "A simple utility for interacting with the Reliance HMO Health Provider API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "FSI",
+    "HMO",
+    "RelianceHMO",
+    "Health"
+  ],
+  "author": "Ifeanyichukwu Amajuoyi",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
