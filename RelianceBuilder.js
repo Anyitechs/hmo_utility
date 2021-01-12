@@ -3,9 +3,9 @@ const axios = require('axios');
 
 class RelianceBuilder {
 
-    constructor(name, stateCode, plan_id, tiers, page = 1, limit = 50) {
-        this.name = name;
-        this.stateCode = stateCode;
+    constructor(state, plan_id, tiers, page, limit) {
+        // this.name = name;
+        this.state = state;
         this.plan_id = plan_id;
         this.tiers = tiers;
         this.page = page;
@@ -22,34 +22,34 @@ class RelianceBuilder {
         return this;
     }
 
-    onTier(tiers=(1,2)) {
+    onTier(tiers) {
         this.tiers = tiers;
         return this;
     }
 
-    locatedIn(stateCode='NG-LA') {
-        this.stateCode = stateCode;
+    locatedIn(state) {
+        this.state = state;
         return this;
     }
 
     async get({page,limit}) {
         this.page = page;
         this.limit = limit;
-        let healthProvider = await axios.get('https://sandboxapi.fsi.ng/relianceHMO/utilities/providers', {
-            headers: {
-                'Sandbox-Key': '93e53a2a0373eedf7c9091791d6d4a6d',
-                'Content-Type': 'application/json'
-            },
-            params: {
-                this: this
-            }
-        })
-        console.log('health')
-        console.log(healthProvider.data)
-        return healthProvider.data;
+        try {
+            let healthProvider = await axios.get(`https://sandboxapi.fsi.ng/relianceHMO/utilities/providers`, {
+                params: this,
+                headers: {
+                    'Sandbox-Key': '93e53a2a0373eedf7c9091791d6d4a6d',
+                    'Content-Type': 'application/json'
+                },
+            });
+            console.log(healthProvider.data)
+            return healthProvider.data;
+        } catch (error) {
+            console.log(error.message)   
+        }
     }
 
 }
 
 module.exports = new RelianceBuilder;
-// export default ;
